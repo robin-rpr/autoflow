@@ -10,20 +10,88 @@ const STORAGE_KEY = 'workflow';
 
 const initialNodes = [
   {
-    id: 'example-1',
+    id: 'node_1',
     type: 'httpNode',
-    position: { x: 250, y: 50 },
+    position: { x: 50, y: 50 },
     data: { 
-      label: 'Fetch Orders',
+      label: 'Fetch Weather',
       method: 'GET',
-      url: 'https://api.example.com/orders'
+      url: 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m',
+      headers: ''
+    },
+  },
+  {
+    id: 'node_2',
+    type: 'httpNode',
+    position: { x: 400, y: 50 },
+    data: { 
+      label: 'Fetch Clothing Products',
+      method: 'GET',
+      url: 'https://fakestoreapi.com/products/category/men\'s%20clothing',
+      headers: ''
+    },
+  },
+  {
+    id: 'node_3',
+    type: 'transformNode',
+    position: { x: 50, y: 250 },
+    data: { 
+      label: 'Determine Season',
+      description: 'Check if temperature > 20°C for summer',
+      transformLogic: 'inputs[0].data.current.temperature_2m > 20 ? "summer" : "winter"',
+      nodeRefs: ''
+    },
+  },
+  {
+    id: 'node_4',
+    type: 'filterNode',
+    position: { x: 225, y: 450 },
+    data: { 
+      label: 'Filter by Season',
+      filterType: 'array',
+      condition: 'item.category === "men\'s clothing"',
+      fields: ''
     },
   },
 ];
 
-const initialEdges = [];
+const initialEdges = [
+  {
+    id: 'edge_1',
+    source: 'node_1',
+    target: 'node_3',
+    type: 'smoothstep',
+    animated: true,
+    markerEnd: {
+      type: 'arrowclosed',
+      color: '#000000',
+    },
+  },
+  {
+    id: 'edge_2',
+    source: 'node_2',
+    target: 'node_4',
+    type: 'smoothstep',
+    animated: true,
+    markerEnd: {
+      type: 'arrowclosed',
+      color: '#000000',
+    },
+  },
+  {
+    id: 'edge_3',
+    source: 'node_3',
+    target: 'node_4',
+    type: 'smoothstep',
+    animated: true,
+    markerEnd: {
+      type: 'arrowclosed',
+      color: '#000000',
+    },
+  },
+];
 
-let id = 1;
+let id = 4;
 const getId = () => `node_${id++}`;
 
 function App() {

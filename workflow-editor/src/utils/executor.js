@@ -85,7 +85,7 @@ async function executeHttpNode(node, inputs) {
  * Execute a transform node
  */
 function executeTransformNode(node, inputs) {
-  const { transformLogic, nodeRefs = [] } = node.data;
+  const { transformLogic, nodeRefs = '' } = node.data;
   
   if (!transformLogic) {
     return inputs[0] || null;
@@ -94,7 +94,13 @@ function executeTransformNode(node, inputs) {
   try {
     // Create context with upstream node references
     const context = { inputs };
-    nodeRefs.forEach((ref, index) => {
+    
+    // Parse nodeRefs (can be string or array)
+    const refs = Array.isArray(nodeRefs) 
+      ? nodeRefs 
+      : (nodeRefs || '').split(',').map(r => r.trim()).filter(r => r);
+    
+    refs.forEach((ref, index) => {
       if (inputs[index]) {
         context[ref] = inputs[index];
       }
@@ -119,17 +125,22 @@ function executeTransformNode(node, inputs) {
  */
 function executeFilterNode(node, inputs) {
   const { filterType = 'array', condition, fields } = node.data;
-  const input = inputs[0];
+  let input = inputs[0];
   
   if (!input) {
     return null;
   }
   
   try {
+    // If input is a response object from HTTP node, extract the data
+    if (input && typeof input === 'object' && 'data' in input && Array.isArray(input.data)) {
+      input = input.data;
+    }
+    
     if (filterType === 'array') {
       // Filter array based on condition
       if (!Array.isArray(input)) {
-        throw new Error('Filter input must be an array');
+        throw new Error(`Filter input must be an array, got ${typeof input}`);
       }
       
       if (!condition) {
