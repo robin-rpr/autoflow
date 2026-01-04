@@ -27,7 +27,3 @@ npm run dev
 ```
 
 Open your browser to `http://localhost:5173`
-
-## Note
-
-Created for the [Minimal AI](https://gominimal.ai) Assessment.
