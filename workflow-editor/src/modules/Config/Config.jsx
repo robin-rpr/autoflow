@@ -59,7 +59,7 @@ export default function Config({ node, onUpdate, onClose }) {
           className="form__textarea"
           value={formData.headers || ''}
           onChange={(e) => handleChange('headers', e.target.value)}
-          placeholder='{"Content-Type": "application/json"}'
+          placeholder={'{\n  "Content-Type": "application/json"\n}'}
           rows={3}
         />
       </div>
@@ -98,7 +98,7 @@ export default function Config({ node, onUpdate, onClose }) {
           className="form__textarea"
           value={formData.expression || ''}
           onChange={(e) => handleChange('expression', e.target.value)}
-          placeholder="// Access upstream data: $node1.data&#10;// Conditional: $node1.status === 'active' ? $node1.total * 0.9 : $node1.total&#10;return data.map(item => ({ ...item, processed: true }));"
+          placeholder={'return $node1.data.filter(item => item.active);'}
           rows={8}
         />
         <small className="form__help">

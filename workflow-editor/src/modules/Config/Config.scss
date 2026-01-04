@@ -3,7 +3,7 @@
   flex-direction: column;
   display: flex;
   flex: 1;
-  
+
   &--empty {
     display: flex;
     align-items: center;
@@ -90,7 +90,8 @@
       .form__textarea {
         resize: vertical;
         font-family: 'Monaco', 'Menlo', monospace;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        min-height: 5rem;
       }
 
       .form__help {

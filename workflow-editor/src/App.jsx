@@ -1,8 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import './App.scss';
 import Palette from './modules/Palette/Palette';
 import Editor from './modules/Editor/Editor';
 import Config from './modules/Config/Config';
+import Results from './components/Results';
+import { execute } from './utils/executor';
+
+const STORAGE_KEY = 'workflow';
 
 const initialNodes = [
   {
@@ -26,6 +30,32 @@ function App() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const [selectedNode, setSelectedNode] = useState(null);
+  const [workflowResults, setWorkflowResults] = useState(null);
+  const [workflowErrors, setWorkflowErrors] = useState(null);
+  const [isExecuting, setIsExecuting] = useState(false);
+
+  // Load saved.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.nodes) setNodes(data.nodes);
+        if (data.edges) setEdges(data.edges);
+        // Update id counter to avoid conflicts
+        const maxId = Math.max(
+          0,
+          ...data.nodes.map(n => {
+            const match = n.id.match(/node_(\d+)/);
+            return match ? parseInt(match[1]) : 0;
+          })
+        );
+        id = maxId + 1;
+      }
+    } catch (error) {
+      console.error('Failed to load workflow:', error);
+    }
+  }, []);
 
   const handleNodesChange = useCallback((changes, applyChanges) => {
     setNodes((nds) => applyChanges(changes, nds));
@@ -85,11 +115,54 @@ function App() {
   }, []); 
 
   const handleSave = useCallback(() => {
-    console.log('Save');
-  }, []);
+    try {
+      const data = {
+        nodes,
+        edges,
+        savedAt: new Date().toISOString(),
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      
+      // Visual feedback
+      const button = document.querySelector('.controls__button:not(.controls__button--primary)');
+      if (button) {
+        const originalText = button.textContent;
+        button.textContent = 'Saved';
+        setTimeout(() => {
+          button.textContent = originalText;
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Failed to save workflow:', error);
+      alert('Failed to save workflow');
+    }
+  }, [nodes, edges]);
 
-  const handleExecute = useCallback(() => {
-    console.log('Execute');
+  const handleExecute = useCallback(async () => {
+    if (nodes.length === 0) {
+      alert('No nodes to execute');
+      return;
+    }
+
+    setIsExecuting(true);
+    setWorkflowResults(null);
+    setWorkflowErrors(null);
+
+    try {
+      const { results, errors } = await execute(nodes, edges);
+      setWorkflowResults(results);
+      setWorkflowErrors(errors);
+    } catch (error) {
+      console.error('Workflow execution failed:', error);
+      setWorkflowErrors({ _global: error.message });
+    } finally {
+      setIsExecuting(false);
+    }
+  }, [nodes, edges]);
+
+  const handleCloseResults = useCallback(() => {
+    setWorkflowResults(null);
+    setWorkflowErrors(null);
   }, []);
 
   return (
@@ -103,8 +176,16 @@ function App() {
           <p className="about__subtitle">Find the best outfit based on the weather</p>
         </div>
         <div className="header__controls">
-          <button onClick={handleSave} className="controls__button">Save</button>
-          <button onClick={handleExecute} className="controls__button controls__button--primary">Execute</button>
+          <button onClick={handleSave} className="controls__button">
+            Save
+          </button>
+          <button 
+            onClick={handleExecute} 
+            className="controls__button controls__button--primary"
+            disabled={isExecuting}
+          >
+            {isExecuting ? 'Running...' : 'Execute'}
+          </button>
         </div>
       </header>
       {/* Content */}
@@ -132,6 +213,15 @@ function App() {
           />
         </div>
       </div>
+
+      {/* Results */}
+      {(workflowResults || workflowErrors) && (
+        <Results
+          results={workflowResults}
+          errors={workflowErrors}
+          onClose={handleCloseResults}
+        />
+      )}
     </div>
   );
 }

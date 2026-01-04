@@ -58,11 +58,25 @@
         color: #444444;
         outline: 1px solid rgba(0, 0, 0, 0.15);
         outline-offset: -1px;
+        transition: all 0.2s;
+
+        &:hover:not(:disabled) {
+          background: #f6f8fa;
+        }
 
         &--primary {
           background: #556acc;
           border: none;
           color: #ffffff;
+
+          &:hover:not(:disabled) {
+            background: #4a5ab8;
+          }
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
       }
     }

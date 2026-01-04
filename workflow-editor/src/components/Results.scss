@@ -1,0 +1,212 @@
+.results {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .results__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .results__content {
+    position: relative;
+    background: white;
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+  }
+
+  .results__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e1e4e8;
+
+    .header__title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #24292e;
+    }
+
+    .header__close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #6a737d;
+      cursor: pointer;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #f6f8fa;
+        color: #24292e;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .results__tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 2rem;
+    border-bottom: 1px solid #e1e4e8;
+
+    .tabs__item {
+      padding: 0.75rem 1rem;
+      margin-top: 2px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6a737d;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        color: #24292e;
+      }
+
+      &--active {
+        color: #0659f3;
+        border-bottom-color: #0659f3;
+      }
+    }
+  }
+
+  .results__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+
+    .body__section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .section__empty {
+        text-align: center;
+        padding: 3rem;
+        color: #6a737d;
+        font-size: 0.95rem;
+      }
+    }
+
+    .body__item {
+      background: #f6f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 0.5rem;
+      overflow: hidden;
+
+      &--error {
+        background: #fff5f5;
+        border-color: #feb2b2;
+      }
+
+      .item__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        background: white;
+        border-bottom: 1px solid #e1e4e8;
+
+        .header__label {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: #24292e;
+        }
+
+        .header__status {
+          font-size: 0.8rem;
+          font-weight: 600;
+          padding: 0.25rem 0.625rem;
+          border-radius: 0.375rem;
+          outline: 0.5px solid rgba(0, 0, 0, 0.1);
+          outline-offset: -0.5px;
+
+          &--success {
+            background: #d4f4dd;
+            color: #1a7f37;
+          }
+
+          &--error {
+            background: #fecaca;
+            color: #dc2626;
+          }
+        }
+      }
+
+      .item__data {
+        padding: 1rem;
+        margin: 0;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 0.8rem;
+        color: #24292e;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      .item__error {
+        padding: 1rem;
+        font-size: 0.875rem;
+        color: #dc2626;
+        font-family: 'Monaco', 'Menlo', monospace;
+      }
+    }
+  }
+
+  .results__footer {
+    padding: 1rem 2rem;
+    border-top: 1px solid #e1e4e8;
+    display: flex;
+    justify-content: flex-end;
+
+    .footer__button {
+      padding: 0.625rem 1.5rem;
+      background: #eeeff1;
+      color: #444444;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      outline: 1px solid rgba(0, 0, 0, 0.1);
+      outline-offset: -1px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #e1e2e4;
+      }
+    }
+  }
+}
