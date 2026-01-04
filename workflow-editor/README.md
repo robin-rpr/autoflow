@@ -1,4 +1,5 @@
 <img title="Autoflow" src="public/logo.svg" height="26" align="left" />
+<br/>
 
 Autoflow is a Workflow Automation Tool.
 
