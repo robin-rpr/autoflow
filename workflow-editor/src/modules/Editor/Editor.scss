@@ -19,6 +19,23 @@
     stroke-width: 3;
   }
 
+  .react-flow__edges {
+    svg {
+      defs {
+        marker {
+          path {
+            fill: #000000 !important;
+          }
+        }
+      }
+    }
+  }
+  
+  marker#react-flow__arrowclosed path {
+    fill: #000000 !important;
+    stroke: #000000 !important;
+  }
+
   .react-flow__controls {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }

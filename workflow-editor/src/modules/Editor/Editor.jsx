@@ -97,6 +97,7 @@ export default function Editor({
         animated: true,
         markerEnd: {
           type: MarkerType.ArrowClosed,
+          color: '#000000',
         },
       };
       

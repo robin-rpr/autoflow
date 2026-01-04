@@ -174,7 +174,7 @@ export default function Config({ node, onUpdate, onClose }) {
       <div className="config__header">
         <div className="header__content">
           <h3 className="content__title">Configure Node</h3>
-          <p className="content__description">Edit the selected node.</p>
+          <p className="content__description">Edit the selected node</p>
         </div>
         <button className="header__close" onClick={onClose}>
           <img src="close.svg" alt="Close" />
