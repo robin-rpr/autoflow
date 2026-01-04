@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Results.scss';
 
-export default function Results({ results, errors, onClose }) {
+export default function Results({ results, errors, onClose, nodes = [] }) {
   const [activeTab, setActiveTab] = useState('results');
 
   if (!results && !errors) {
@@ -10,6 +10,12 @@ export default function Results({ results, errors, onClose }) {
 
   const hasResults = results && Object.keys(results).length > 0;
   const hasErrors = errors && Object.keys(errors).length > 0;
+
+  // Retrieve node label
+  const getNodeLabel = (nodeId) => {
+    const node = nodes.find(n => n.id === nodeId);
+    return node?.data?.label || 'Unnamed Node';
+  };
 
   return (
     <div className="results">
@@ -44,7 +50,9 @@ export default function Results({ results, errors, onClose }) {
                 Object.entries(results).map(([nodeId, result]) => (
                   <div key={nodeId} className="body__item">
                     <div className="item__header">
-                      <span className="header__label">Node: {nodeId}</span>
+                      <span className="header__label">
+                        {getNodeLabel(nodeId)} <span className="header__id">({nodeId})</span>
+                      </span>
                       <span className="header__status header__status--success">
                         ✓ Success
                       </span>
@@ -68,7 +76,9 @@ export default function Results({ results, errors, onClose }) {
                 Object.entries(errors).map(([nodeId, error]) => (
                   <div key={nodeId} className="body__item body__item--error">
                     <div className="item__header">
-                      <span className="header__label">Node: {nodeId}</span>
+                      <span className="header__label">
+                        {getNodeLabel(nodeId)} <span className="header__id">({nodeId})</span>
+                      </span>
                       <span className="header__status header__status--error">
                         ✕ Error
                       </span>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './Config.scss';
 import JSON from '../../components/JSON/JSON';
 
-export default function Config({ node, onUpdate, onClose }) {
+export default function Config({ node, nodes = [], edges = [], onUpdate, onClose }) {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
@@ -18,6 +18,18 @@ export default function Config({ node, onUpdate, onClose }) {
       </div>
     );
   }
+
+  // Get upstream nodes
+  const getUpstreamNodes = () => {
+    const upstreamEdges = edges.filter(edge => edge.target === node.id);
+    return upstreamEdges.map(edge => {
+      const upstreamNode = nodes.find(n => n.id === edge.source);
+      return {
+        id: edge.source,
+        label: upstreamNode?.data?.label || 'Unnamed Node'
+      };
+    });
+  };
 
   const handleChange = (field, value) => {
     const newData = { ...formData, [field]: value };
@@ -70,48 +82,57 @@ export default function Config({ node, onUpdate, onClose }) {
     </>
   );
 
-  const renderTransformConfig = () => (
-    <>
-      <div className="body__form">
-        <label className="form__label">Description</label>
-        <input
-          className="form__input"
-          type="text"
-          value={formData.description || ''}
-          onChange={(e) => handleChange('description', e.target.value)}
-          placeholder="What does this transformation do?"
-        />
-      </div>
-      <div className="body__form">
-        <label className="form__label">Upstream Node References</label>
-        <input
-          className="form__input"
-          type="text"
-          value={formData.upstreamRefs || ''}
-          onChange={(e) => handleChange('upstreamRefs', e.target.value)}
-          placeholder="e.g., $node1, $node2 (comma-separated)"
-        />
-        <small className="form__help">
-          <img className="help__icon" src="info.svg" alt="Info" />
-          <div className="help__text">Reference upstream nodes using $nodeId syntax</div>
-        </small>
-      </div>
-      <div className="body__form">
-        <label className="form__label">Transform Expression (JavaScript)</label>
-        <textarea
-          className="form__textarea"
-          value={formData.expression || ''}
-          onChange={(e) => handleChange('expression', e.target.value)}
-          placeholder={'return $node1.data.filter(item => item.active);'}
-          rows={8}
-        />
-        <small className="form__help">
-          <img className="help__icon" src="info.svg" alt="Info" />
-          <div className="help__text">Use conditional expressions and reference upstream nodes</div>
-        </small>
-      </div>
-    </>
-  );
+  const renderTransformConfig = () => {
+    const upstreamNodes = getUpstreamNodes();
+    
+    return (
+      <>
+        <div className="body__form">
+          <label className="form__label">Description</label>
+          <input
+            className="form__input"
+            type="text"
+            value={formData.description || ''}
+            onChange={(e) => handleChange('description', e.target.value)}
+            placeholder="What does this transformation do?"
+          />
+        </div>
+        
+        {upstreamNodes.length > 0 && (
+          <div className="body__form">
+            <label className="form__label">Upstream Nodes</label>
+            <div className="form__info">
+              {upstreamNodes.map((upstream, index) => (
+                <div key={upstream.id} className="info__row">
+                  <span className="row__name">{upstream.label}</span>
+                  <span className="row__reference">${upstream.id}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        <div className="body__form">
+          <label className="form__label">Transform Logic (JavaScript)</label>
+          <textarea
+            className="form__textarea"
+            value={formData.transformLogic || ''}
+            onChange={(e) => handleChange('transformLogic', e.target.value)}
+            placeholder={upstreamNodes.length > 0 
+              ? `inputs[0].data // Access first upstream node\n$${upstreamNodes[0]?.id}.data // Or use $nodeId syntax` 
+              : 'inputs[0] // Access upstream node data'}
+            rows={8}
+          />
+          <div className="form__help">
+            <img className="help__icon" src="info.svg" alt="Info" />
+            <div className="help__text">
+              Access upstream nodes using <code>inputs[index]</code> or <code>$node_id</code> syntax
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   const renderFilterConfig = () => (
     <>

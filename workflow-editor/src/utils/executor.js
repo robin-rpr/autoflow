@@ -84,8 +84,8 @@ async function executeHttpNode(node, inputs) {
 /**
  * Execute a transform node
  */
-function executeTransformNode(node, inputs) {
-  const { transformLogic, nodeRefs = '' } = node.data;
+function executeTransformNode(node, inputs, sourceNodeIds = []) {
+  const { transformLogic } = node.data;
   
   if (!transformLogic) {
     return inputs[0] || null;
@@ -95,19 +95,14 @@ function executeTransformNode(node, inputs) {
     // Create context with upstream node references
     const context = { inputs };
     
-    // Parse nodeRefs (can be string or array)
-    const refs = Array.isArray(nodeRefs) 
-      ? nodeRefs 
-      : (nodeRefs || '').split(',').map(r => r.trim()).filter(r => r);
-    
-    refs.forEach((ref, index) => {
-      if (inputs[index]) {
-        context[ref] = inputs[index];
+    // Add $nodeId references for each source node
+    sourceNodeIds.forEach((nodeId, index) => {
+      if (inputs[index] !== undefined) {
+        context[`$${nodeId}`] = inputs[index];
       }
     });
     
     // Execute transform logic
-    // For safety, we'll use a simple evaluation approach
     const func = new Function('context', `
       with(context) {
         return ${transformLogic};
@@ -181,12 +176,12 @@ function executeFilterNode(node, inputs) {
 /**
  * Execute a single node
  */
-async function executeNode(node, inputs) {
+async function executeNode(node, inputs, sourceNodeIds = []) {
   switch (node.type) {
     case 'httpNode':
       return await executeHttpNode(node, inputs);
     case 'transformNode':
-      return executeTransformNode(node, inputs);
+      return executeTransformNode(node, inputs, sourceNodeIds);
     case 'filterNode':
       return executeFilterNode(node, inputs);
     default:
@@ -224,7 +219,7 @@ export async function execute(nodes, edges, onProgress) {
       const inputs = sourceNodes.map(sourceId => results.get(sourceId));
       
       // Execute node
-      const result = await executeNode(node, inputs);
+      const result = await executeNode(node, inputs, sourceNodes);
       results.set(node.id, result);
       
       // Notify success
@@ -239,7 +234,8 @@ export async function execute(nodes, edges, onProgress) {
         onProgress(node.id, 'error', error.message);
       }
       
-      // Continue execution for other branches
+      // Continue execution
+      // ...
     }
   }
   

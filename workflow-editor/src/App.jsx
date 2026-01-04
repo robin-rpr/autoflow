@@ -38,8 +38,7 @@ const initialNodes = [
     data: { 
       label: 'Determine Season',
       description: 'Check if temperature > 20°C for summer',
-      transformLogic: 'inputs[0].data.current.temperature_2m > 20 ? "summer" : "winter"',
-      nodeRefs: ''
+      transformLogic: '$node_1.data.current.temperature_2m > 20 ? "summer" : "winter"'
     },
   },
   {
@@ -276,6 +275,8 @@ function App() {
         <div className="content__config">
           <Config
             node={selectedNode}
+            nodes={nodes}
+            edges={edges}
             onUpdate={handleNodeUpdate}
             onClose={handleConfigClose}
           />
@@ -287,6 +288,7 @@ function App() {
         <Results
           results={workflowResults}
           errors={workflowErrors}
+          nodes={nodes}
           onClose={handleCloseResults}
         />
       )}
