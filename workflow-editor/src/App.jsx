@@ -95,7 +95,7 @@ function App() {
         </div>
         <div className="header__controls">
           <button onClick={handleSave} className="controls__button">Save</button>
-          <button onClick={handleExecute} className="controls__button controls__button--dark">Execute</button>
+          <button onClick={handleExecute} className="controls__button controls__button--primary">Execute</button>
         </div>
       </header>
       {/* Content */}

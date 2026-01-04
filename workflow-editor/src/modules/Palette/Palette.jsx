@@ -47,7 +47,6 @@ export default function Palette() {
       {/* Legal */}
       <div className="palette__legal">
         <p>© {new Date().getFullYear()} Autoflow, Inc.</p>
-        <p>All rights reserved.</p>
       </div>
     </div>
   );
