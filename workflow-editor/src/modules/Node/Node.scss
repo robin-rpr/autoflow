@@ -1,0 +1,94 @@
+.node {
+    min-width: 200px;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 2px solid transparent;
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+    transition: all 0.2s;
+    overflow: hidden;
+
+    &:hover:not(&--selected) {
+        outline-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &--selected {
+        outline-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .node__header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        background: #f8f9fa;
+        border-bottom: 1px solid #e1e4e8;
+        border-radius: 6px 6px 0 0;
+
+        .header__icon {
+            width: 22px;
+        }
+
+        .header__title {
+            font-weight: 600;
+            color: #24292e;
+            font-size: 0.9rem;
+        }
+    }
+
+    .node__body {
+        padding: 0.875rem 1rem;
+
+        .body__info {
+            font-size: 0.85rem;
+            color: #586069;
+
+            .info__badge {
+                &--method {
+                    display: inline-block;
+                    padding: 0.2rem 0.5rem;
+                    background: #667eea;
+                    color: white;
+                    border-radius: 4px;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                    outline: 1px solid rgba(0, 0, 0, 0.1);
+                    outline-offset: -1px;
+                }
+
+                &--filter-type {
+                    display: inline-block;
+                    padding: 0.2rem 0.5rem;
+                    background: #50C878;
+                    color: white;
+                    border-radius: 4px;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                    outline: 1px solid rgba(0, 0, 0, 0.1);
+                    outline-offset: -1px;
+                }
+            }
+
+            .info__url,
+            .info__description,
+            .info__condition {
+                margin-top: 0.5rem;
+                font-size: 0.8rem;
+                color: #24292e;
+                word-break: break-word;
+            }
+
+            .info__detail,
+            .info__refs,
+            .info__fields {
+                margin-top: 0.5rem;
+                font-size: 0.75rem;
+                color: #6a737d;
+                font-style: italic;
+            }
+        }
+    }
+}

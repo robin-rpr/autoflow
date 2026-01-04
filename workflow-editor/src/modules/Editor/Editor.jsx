@@ -10,9 +10,9 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import './Editor.scss';
 
-import HTTP from '../../nodes/HTTP';
-import Transform from '../../nodes/Transform';
-import Filter from '../../nodes/Filter';
+import HTTP from '../Node/HTTP';
+import Transform from '../Node/Transform';
+import Filter from '../Node/Filter';
 
 const nodeTypes = {
   httpNode: HTTP,
