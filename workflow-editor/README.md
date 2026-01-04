@@ -1,6 +1,4 @@
-<img title="Autoflow" src="public/logo.svg" height="22" align="left" />
-
----
+<img title="Autoflow" src="public/logo.svg" height="26" align="left" />
 
 Autoflow is a Workflow Automation Tool.
 
