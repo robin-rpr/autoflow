@@ -144,10 +144,11 @@ export default function Editor({
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         nodeTypes={nodeTypes}
-        defaultViewport={{ x: 0, y: 0, zoom: 0.75 }}
-        fitView
+        defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+        fitViewOptions={{ maxZoom: 1, minZoom: 1 }}
         deleteKeyCode={['Backspace', 'Delete']}
         proOptions={{ hideAttribution: true }}
+        fitView
       >
         <Background variant="dots" gap={12} size={1} />
         <Controls />

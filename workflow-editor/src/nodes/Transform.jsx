@@ -7,7 +7,7 @@ export default function Transform({ data, selected }) {
   return (
     <div className={`custom-node custom-node--transform ${selected ? 'custom-node--selected' : ''}`}>
       <div className="custom-node__header">
-        <span className="custom-node__icon">⚙️</span>
+        <img className="custom-node__icon" src="gear.svg" alt="Transform" />
         <span className="custom-node__title">{displayLabel}</span>
       </div>
       <div className="custom-node__body">

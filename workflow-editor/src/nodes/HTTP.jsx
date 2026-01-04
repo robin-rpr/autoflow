@@ -7,7 +7,7 @@ export default function HTTP({ data, selected }) {
   return (
     <div className={`custom-node custom-node--http ${selected ? 'custom-node--selected' : ''}`}>
       <div className="custom-node__header">
-        <span className="custom-node__icon">🌐</span>
+        <img className="custom-node__icon" src="globe.svg" alt="HTTP Request" />
         <span className="custom-node__title">{displayLabel}</span>
       </div>
       <div className="custom-node__body">

@@ -7,7 +7,7 @@ export default function Filter({ data, selected }) {
   return (
     <div className={`custom-node custom-node--filter ${selected ? 'custom-node--selected' : ''}`}>
       <div className="custom-node__header">
-        <span className="custom-node__icon">🔍</span>
+        <img className="custom-node__icon" src="filter.svg" alt="Filter" />
         <span className="custom-node__title">{displayLabel}</span>
       </div>
       <div className="custom-node__body">
