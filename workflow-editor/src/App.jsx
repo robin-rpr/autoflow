@@ -75,14 +75,27 @@ function App() {
     setSelectedNode(null);
   }, []); 
 
+  const handleSave = useCallback(() => {
+    console.log('Save');
+  }, []);
+
+  const handleExecute = useCallback(() => {
+    console.log('Execute');
+  }, []);
+
   return (
     <div className="app">
       {/* Header */}
       <header className="app__header">
-        <img src="assets/logo.svg" alt="Logo" className="header__logo" />
+        <img src="logo.svg" alt="Logo" className="header__logo" />
         <div className="header__about">
           <h1 className="about__title">Weather Outfit Analysis</h1>
-          <p className="about__subtitle">Update your description under Settings</p>
+          <div className="about__delimiter"></div>
+          <p className="about__subtitle">Find the best outfit based on the weather</p>
+        </div>
+        <div className="header__controls">
+          <button onClick={handleSave} className="controls__button">Save</button>
+          <button onClick={handleExecute} className="controls__button controls__button--dark">Execute</button>
         </div>
       </header>
       {/* Content */}
