@@ -3,7 +3,7 @@ import './Node.scss';
 
 export default function Transform({ data, selected }) {
   const displayLabel = data.label || 'Transform';
-  const borderColor = '#0659f3';
+  const borderColor = '#067cf3';
 
   return (
     <div

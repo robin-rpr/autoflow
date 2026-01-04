@@ -10,13 +10,13 @@
   }
 
   .react-flow__edge-path {
-    stroke: #667eea;
-    stroke-width: 2;
+    stroke: rgb(162, 162, 171);
+    stroke-width: 1.5;
   }
 
   .react-flow__edge.selected .react-flow__edge-path {
-    stroke: #764ba2;
-    stroke-width: 3;
+    stroke: rgb(92, 92, 96);
+    stroke-width: 1.5;
   }
 
   .react-flow__edges {

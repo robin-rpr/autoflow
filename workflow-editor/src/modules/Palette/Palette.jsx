@@ -10,7 +10,7 @@ export default function Palette() {
   // Node types.
   const nodeTypes = [
     { type: 'httpNode', label: 'HTTP Request', icon: 'globe.svg', color: '#3649d7' },
-    { type: 'transformNode', label: 'Transform', icon: 'gear.svg', color: '#0659f3' },
+    { type: 'transformNode', label: 'Transform', icon: 'gear.svg', color: '#067cf3' },
     { type: 'filterNode', label: 'Filter', icon: 'filter.svg', color: '#a187e3' },
   ];
 
