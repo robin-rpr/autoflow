@@ -1,0 +1,31 @@
+.react-flow {
+  &__node {
+    cursor: grab;
+
+    &.selected {
+      cursor: grabbing;
+    }
+  }
+
+  &__edge-path {
+    stroke: #667eea;
+    stroke-width: 2;
+  }
+
+  &__edge.selected &__edge-path {
+    stroke: #764ba2;
+    stroke-width: 3;
+  }
+
+  &__controls {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &__controls-button {
+    border-bottom: 1px solid #e1e4e8;
+
+    &:hover {
+      background: #f6f8fa;
+    }
+  }
+}

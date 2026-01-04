@@ -1,0 +1,65 @@
+// ============================================
+// App - Main Application Container
+// ============================================
+
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+
+  &__header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .header__logo {
+      height: 21px;
+    }
+
+    .header__about {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+
+      .about__title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #444444;
+      }
+
+      .about__subtitle {
+        font-size: 0.9rem;
+        color: #666666;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+
+    .content__sidebar {
+      width: 260px;
+      background: white;
+      border-right: 1px solid #e1e4e8;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    }
+  
+    .content__canvas {
+      flex: 1;
+      position: relative;
+      background: #fafbfc;
+    }
+  
+    .content__config {
+      width: 320px;
+      background: white;
+      border-left: 1px solid #e1e4e8;
+      overflow-y: auto;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
