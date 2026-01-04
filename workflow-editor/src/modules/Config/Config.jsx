@@ -87,7 +87,10 @@ export default function Config({ node, onUpdate, onClose }) {
           onChange={(e) => handleChange('upstreamRefs', e.target.value)}
           placeholder="e.g., $node1, $node2 (comma-separated)"
         />
-        <small className="form__help-text">Reference upstream nodes using $nodeId syntax</small>
+        <small className="form__help">
+          <img className="help__icon" src="info.svg" alt="Info" />
+          <div className="help__text">Reference upstream nodes using $nodeId syntax</div>
+        </small>
       </div>
       <div className="body__form">
         <label className="form__label">Transform Expression (JavaScript)</label>
@@ -98,7 +101,10 @@ export default function Config({ node, onUpdate, onClose }) {
           placeholder="// Access upstream data: $node1.data&#10;// Conditional: $node1.status === 'active' ? $node1.total * 0.9 : $node1.total&#10;return data.map(item => ({ ...item, processed: true }));"
           rows={8}
         />
-        <small className="form__help-text">Use conditional expressions and reference upstream nodes</small>
+        <small className="form__help">
+          <img className="help__icon" src="info.svg" alt="Info" />
+          <div className="help__text">Use conditional expressions and reference upstream nodes</div>
+        </small>
       </div>
     </>
   );
@@ -126,7 +132,10 @@ export default function Config({ node, onUpdate, onClose }) {
             onChange={(e) => handleChange('condition', e.target.value)}
             placeholder="e.g., item.status === 'active' && item.total > 100"
           />
-          <small className="form__help-text">Filters array items that match the condition</small>
+          <small className="form__help">
+            <img className="help__icon" src="info.svg" alt="Info" />
+            <div className="help__text">Filters array items that match the condition</div>
+          </small>
         </div>
       ) : (
         <div className="body__form">
@@ -138,7 +147,10 @@ export default function Config({ node, onUpdate, onClose }) {
             onChange={(e) => handleChange('fields', e.target.value)}
             placeholder="id, name, email, status"
           />
-          <small className="form__help-text">Only these fields will be kept in the object</small>
+          <small className="form__help">
+            <img className="help__icon" src="info.svg" alt="Info" />
+            <div className="help__text">Only these fields will be kept in the object</div>
+          </small>
         </div>
       )}
     </>

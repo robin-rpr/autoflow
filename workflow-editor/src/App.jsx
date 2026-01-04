@@ -52,7 +52,16 @@ function App() {
       id: getId(),
       type,
       position,
-      data: { label: `${type} node` },
+      data: {
+        label:
+          type === 'httpNode'
+            ? 'HTTP Request'
+            : type === 'transformNode'
+            ? 'Transform'
+            : type === 'filterNode'
+            ? 'Filter'
+            : `${type} node`
+      },
     };
     setNodes((nds) => nds.concat(newNode));
   }, []);
