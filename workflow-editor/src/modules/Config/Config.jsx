@@ -29,7 +29,7 @@ export default function Config({ node, onUpdate, onClose }) {
 
   const renderHTTPConfig = () => (
     <>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Method</label>
         <select
           className="form__select"
@@ -43,7 +43,7 @@ export default function Config({ node, onUpdate, onClose }) {
           <option value="PATCH">PATCH</option>
         </select>
       </div>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">URL</label>
         <input
           className="form__input"
@@ -53,7 +53,7 @@ export default function Config({ node, onUpdate, onClose }) {
           placeholder="https://api.example.com/endpoint"
         />
       </div>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Headers (JSON)</label>
         <textarea
           className="form__textarea"
@@ -68,7 +68,7 @@ export default function Config({ node, onUpdate, onClose }) {
 
   const renderTransformConfig = () => (
     <>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Description</label>
         <input
           className="form__input"
@@ -78,7 +78,7 @@ export default function Config({ node, onUpdate, onClose }) {
           placeholder="What does this transformation do?"
         />
       </div>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Upstream Node References</label>
         <input
           className="form__input"
@@ -89,7 +89,7 @@ export default function Config({ node, onUpdate, onClose }) {
         />
         <small className="form__help-text">Reference upstream nodes using $nodeId syntax</small>
       </div>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Transform Expression (JavaScript)</label>
         <textarea
           className="form__textarea"
@@ -105,7 +105,7 @@ export default function Config({ node, onUpdate, onClose }) {
 
   const renderFilterConfig = () => (
     <>
-      <div className="form">
+      <div className="body__form">
         <label className="form__label">Filter Type</label>
         <select
           className="form__select"
@@ -117,7 +117,7 @@ export default function Config({ node, onUpdate, onClose }) {
         </select>
       </div>
       {formData.filterType === 'array' || !formData.filterType ? (
-        <div className="form">
+        <div className="body__form">
           <label className="form__label">Array Filter Condition</label>
           <input
             className="form__input"
@@ -129,7 +129,7 @@ export default function Config({ node, onUpdate, onClose }) {
           <small className="form__help-text">Filters array items that match the condition</small>
         </div>
       ) : (
-        <div className="form">
+        <div className="body__form">
           <label className="form__label">Fields to Keep (comma-separated)</label>
           <input
             className="form__input"
