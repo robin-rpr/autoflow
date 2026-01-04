@@ -38,13 +38,32 @@
 
   .react-flow__controls {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    outline-offset: -1px;
+    border-radius: 0.5rem;
+    overflow: hidden;
   }
 
   .react-flow__controls-button {
+    background: #ffffff;
+    color: #444444;
+    border: none;
     border-bottom: 1px solid #e1e4e8;
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     &:hover {
       background: #f6f8fa;
+    }
+
+    svg {
+      max-width: 12px;
+      max-height: 12px;
     }
   }
 

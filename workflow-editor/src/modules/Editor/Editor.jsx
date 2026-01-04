@@ -152,7 +152,7 @@ export default function Editor({
         fitView
       >
         <Background variant="dots" gap={12} size={1} />
-        <Controls />
+        <Controls showInteractive={false} showFitView={false} />
       </ReactFlow>
     </div>
   );
