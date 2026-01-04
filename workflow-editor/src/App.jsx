@@ -3,7 +3,7 @@ import './App.scss';
 import Palette from './modules/Palette/Palette';
 import Editor from './modules/Editor/Editor';
 import Config from './modules/Config/Config';
-import Results from './components/Results';
+import Results from './components/Results/Results';
 import { execute } from './utils/executor';
 
 const STORAGE_KEY = 'workflow';

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Config.scss';
+import JSON from '../../components/JSON/JSON';
 
 export default function Config({ node, onUpdate, onClose }) {
   const [formData, setFormData] = useState({});
@@ -55,13 +56,16 @@ export default function Config({ node, onUpdate, onClose }) {
       </div>
       <div className="body__form">
         <label className="form__label">Headers (JSON)</label>
-        <textarea
-          className="form__textarea"
+        <JSON
           value={formData.headers || ''}
-          onChange={(e) => handleChange('headers', e.target.value)}
+          onChange={(value) => handleChange('headers', value)}
           placeholder={'{\n  "Content-Type": "application/json"\n}'}
           rows={3}
         />
+        <div className="form__help">
+          <img src="info.svg" alt="Info" className="help__icon" />
+          <p className="help__text">Optional JSON object for custom headers</p>
+        </div>
       </div>
     </>
   );
