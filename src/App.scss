@@ -65,13 +65,10 @@
         }
 
         &--primary {
-          background: #556acc;
-          border: none;
+          box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 0px 0px inset;
+          background: linear-gradient(0deg, #5c72d2, #647ce1);
           color: #ffffff;
-
-          &:hover:not(:disabled) {
-            background: #4a5ab8;
-          }
+          border: none;
         }
 
         &:disabled {
