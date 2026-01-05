@@ -3,6 +3,10 @@
 
 Autoflow is a Workflow Automation Tool.
 
+## Demo
+
+![Demo](demo.gif)
+
 ## Getting Started
 
 ### Prerequisites
