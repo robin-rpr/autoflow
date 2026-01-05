@@ -69,6 +69,11 @@
           background: linear-gradient(0deg, #5c72d2, #647ce1);
           color: #ffffff;
           border: none;
+
+          &:hover:not(:disabled) {
+            /* TODO(rroeper): This styling can be solved better */
+            background: linear-gradient(0deg, #5c72d2, #647ce1);;
+          }
         }
 
         &:disabled {
