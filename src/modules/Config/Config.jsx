@@ -119,7 +119,7 @@ export default function Config({ node, nodes = [], edges = [], onUpdate, onClose
             value={formData.transformLogic || ''}
             onChange={(e) => handleChange('transformLogic', e.target.value)}
             placeholder={upstreamNodes.length > 0 
-              ? `inputs[0].data // Access first upstream node\n$${upstreamNodes[0]?.id}.data // Or use $nodeId syntax` 
+              ? `inputs[0].data // Access first upstream node\n$${upstreamNodes[0]?.id}.data` 
               : 'inputs[0] // Access upstream node data'}
             rows={8}
           />
@@ -175,7 +175,9 @@ export default function Config({ node, nodes = [], edges = [], onUpdate, onClose
             />
             <small className="form__help">
               <img className="help__icon" src="info.svg" alt="Info" />
-              <div className="help__text">Filters array items that match the condition. Use $nodeId to reference upstream nodes.</div>
+              <div className="help__text">
+                Access upstream nodes using <code>inputs[index]</code> or <code>$node_id</code> syntax
+              </div>
             </small>
           </div>
         ) : (
