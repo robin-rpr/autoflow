@@ -118,7 +118,7 @@ function executeTransformNode(node, inputs, sourceNodeIds = []) {
 /**
  * Execute a filter node
  */
-function executeFilterNode(node, inputs) {
+function executeFilterNode(node, inputs, sourceNodeIds = []) {
   const { filterType = 'array', condition, fields } = node.data;
   let input = inputs[0];
   
@@ -142,12 +142,24 @@ function executeFilterNode(node, inputs) {
         return input;
       }
       
-      // Create filter function
-      const filterFunc = new Function('item', `
-        return ${condition};
+      // Create context with upstream node references
+      const context = { inputs };
+      
+      // Add $nodeId references for each source node
+      sourceNodeIds.forEach((nodeId, index) => {
+        if (inputs[index] !== undefined) {
+          context[`$${nodeId}`] = inputs[index];
+        }
+      });
+      
+      // Create filter function with context
+      const filterFunc = new Function('item', 'context', `
+        with(context) {
+          return ${condition};
+        }
       `);
       
-      return input.filter(filterFunc);
+      return input.filter(item => filterFunc(item, context));
     } else if (filterType === 'object') {
       // Remove fields from object
       if (typeof input !== 'object') {
@@ -183,7 +195,7 @@ async function executeNode(node, inputs, sourceNodeIds = []) {
     case 'transformNode':
       return executeTransformNode(node, inputs, sourceNodeIds);
     case 'filterNode':
-      return executeFilterNode(node, inputs);
+      return executeFilterNode(node, inputs, sourceNodeIds);
     default:
       throw new Error(`Unknown node type: ${node.type}`);
   }

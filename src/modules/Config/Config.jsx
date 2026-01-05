@@ -134,52 +134,69 @@ export default function Config({ node, nodes = [], edges = [], onUpdate, onClose
     );
   };
 
-  const renderFilterConfig = () => (
-    <>
-      <div className="body__form">
-        <label className="form__label">Filter Type</label>
-        <select
-          className="form__select"
-          value={formData.filterType || 'array'}
-          onChange={(e) => handleChange('filterType', e.target.value)}
-        >
-          <option value="array">Array Filter (filter items based on condition)</option>
-          <option value="object">Object Filter (remove/keep fields)</option>
-        </select>
-      </div>
-      {formData.filterType === 'array' || !formData.filterType ? (
+  const renderFilterConfig = () => {
+    const upstreamNodes = getUpstreamNodes();
+    
+    return (
+      <>
+        {upstreamNodes.length > 0 && (
+          <div className="body__form">
+            <label className="form__label">Upstream Nodes</label>
+            <div className="form__info">
+              {upstreamNodes.map((upstream, index) => (
+                <div key={upstream.id} className="info__row">
+                  <span className="row__name">{upstream.label}</span>
+                  <span className="row__reference">${upstream.id}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="body__form">
-          <label className="form__label">Array Filter Condition</label>
-          <input
-            className="form__input"
-            type="text"
-            value={formData.condition || ''}
-            onChange={(e) => handleChange('condition', e.target.value)}
-            placeholder="e.g., item.status === 'active' && item.total > 100"
-          />
-          <small className="form__help">
-            <img className="help__icon" src="info.svg" alt="Info" />
-            <div className="help__text">Filters array items that match the condition</div>
-          </small>
+          <label className="form__label">Filter Type</label>
+          <select
+            className="form__select"
+            value={formData.filterType || 'array'}
+            onChange={(e) => handleChange('filterType', e.target.value)}
+          >
+            <option value="array">Array Filter (filter items based on condition)</option>
+            <option value="object">Object Filter (remove/keep fields)</option>
+          </select>
         </div>
-      ) : (
-        <div className="body__form">
-          <label className="form__label">Fields to Keep (comma-separated)</label>
-          <input
-            className="form__input"
-            type="text"
-            value={formData.fields || ''}
-            onChange={(e) => handleChange('fields', e.target.value)}
-            placeholder="id, name, email, status"
-          />
-          <small className="form__help">
-            <img className="help__icon" src="info.svg" alt="Info" />
-            <div className="help__text">Only these fields will be kept in the object</div>
-          </small>
-        </div>
-      )}
-    </>
-  );
+        {formData.filterType === 'array' || !formData.filterType ? (
+          <div className="body__form">
+            <label className="form__label">Array Filter Condition</label>
+            <input
+              className="form__input"
+              type="text"
+              value={formData.condition || ''}
+              onChange={(e) => handleChange('condition', e.target.value)}
+              placeholder="e.g., item.price > 100 || $node_3.result === 'winter'"
+            />
+            <small className="form__help">
+              <img className="help__icon" src="info.svg" alt="Info" />
+              <div className="help__text">Filters array items that match the condition. Use $nodeId to reference upstream nodes.</div>
+            </small>
+          </div>
+        ) : (
+          <div className="body__form">
+            <label className="form__label">Fields to Keep (comma-separated)</label>
+            <input
+              className="form__input"
+              type="text"
+              value={formData.fields || ''}
+              onChange={(e) => handleChange('fields', e.target.value)}
+              placeholder="id, name, email, status"
+            />
+            <small className="form__help">
+              <img className="help__icon" src="info.svg" alt="Info" />
+              <div className="help__text">Only these fields will be kept in the object</div>
+            </small>
+          </div>
+        )}
+      </>
+    );
+  };
 
   const renderConfigForm = () => {
     switch (node.type) {

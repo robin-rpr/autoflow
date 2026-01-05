@@ -84,7 +84,8 @@ function App() {
               "data": {
                 "label": "Filter by Season",
                 "filterType": "array",
-                "condition": "item.category === \"men's clothing\"", "fields": ""
+                "condition": "$node_3 === \"winter\" ? item.title.toLowerCase().includes(\"jacket\") : !item.title.toLowerCase().includes(\"jacket\")",
+                "fields": ""
               },
               "width": 249,
               "height": 126
